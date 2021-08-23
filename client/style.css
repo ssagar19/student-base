@@ -1,0 +1,35 @@
+table{
+    background-color: #c1c1c1;
+    margin: 0 auto;
+    border-radius: 20px;
+}
+
+.wrapper{
+    /* background-color: rgb(179, 174, 179); */
+    text-align: center;
+    padding: 40px;
+    width: 50%;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+
+}
+.wrapper-inner{
+    width: 70%;
+}
+.lg-bt{
+    width: 70%;
+}
+.cr{
+    margin: 0 auto;;
+}
+.remover{
+    display: none;
+}
+.sg{
+    width: 63%;
+}
+
+.ald{
+    position: absolute;
+    top: 500px;
+    left: 300px;
+}

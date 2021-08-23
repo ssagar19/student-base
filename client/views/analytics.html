@@ -1,0 +1,30 @@
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+  <div class="panel panel-primary container">
+    <div style="font-size: large; font-weight: bold; color: rgb(248, 248, 248);" class="panel-heading wrapper cr">Get top three Based on Branch and Place</div>
+  
+
+
+  
+<div class="form-group panel-body wrapper cr" align='center'>
+    <br>
+    <br>
+
+    <label for="topthree">Place / Branch: </label><br>
+    <input  class="form-control" type="text" id="topthree" name="topthree"><br>
+<br>
+<br>
+
+  <button class="btn btn-primary sg" ng-click='getTopthree()'>Get Top Three</button>
+  <ul class="list-group wrapper" style="margin: 0 auto;">
+  
+    <li class="list-group-item" ng-repeat='v in val'>{{v.fname}} - {{v.marks}}</li>
+    
+  </ul>
+</div>
+</div>
+  
