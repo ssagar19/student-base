@@ -4,6 +4,7 @@ app.controller("bigData", function ($scope, $http, $location, httpFactory) {
     $scope.branch = "";
     if(!document.cookie){
       $location.path('/login');
+
     }
     $scope.marks = 0;
     $scope.school = "";
@@ -14,7 +15,7 @@ app.controller("bigData", function ($scope, $http, $location, httpFactory) {
     $scope.topthree = "j";
     console.log($scope.vis);
     $scope.logout = function () {
-      httpFactory.redditGet("http://localhost:3000/logout").then(function (response) {
+      httpFactory.logOut("http://localhost:3000/logout").then(function (response) {
         console.log(response);
       });
       $location.path("/login");

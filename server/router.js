@@ -4,7 +4,6 @@ var Post = require("./product");
 
 
 const authController = require('./authController');
-console.log(authController);
 /**
  *@param
  */ 

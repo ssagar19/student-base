@@ -14,7 +14,7 @@
     <tr><th>Place</th><th>Name</th><th>Branch</th><th>Marks</th><th>School</th></tr>
   </thead>
   <tbody>
-    <tr ng-repeat='post in posts | filter : search'>
+    <tr ng-repeat='post in posts track by $index'>
       <td>{{post.place}}</td>
       <td>
         {{post.fname}}

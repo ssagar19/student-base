@@ -68,9 +68,9 @@ app.directive("bs", function () {
 
 app.factory('httpFactory', function ($http) {
   return {
-    redditGet: redditGet
+    logOut: logOut
   };
-  function redditGet (url) {
+  function logOut (url) {
     return $http.get(url);
   }
 });
