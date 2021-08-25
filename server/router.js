@@ -92,7 +92,7 @@ router.post("/create", (req, res) => {
       }
       bulk
         .execute()
-        .then((c) => console.log("success", c))
+        .then((c) => console.log("successfully inserted", c.result.nInserted, "entries"))
         .catch((err) => console.log(err));
     }
   else{
@@ -100,7 +100,6 @@ router.post("/create", (req, res) => {
     const { fname, marks, branch, school, place } = req.body;
 
   if (fname && marks && branch && school && place) {
-  
     let bulk = Post.collection.initializeUnorderedBulkOp();
       bulk.insert({
         fname:fname,
@@ -113,7 +112,7 @@ router.post("/create", (req, res) => {
       // bulk.find({}).remove(); // to delete all documents
     bulk
       .execute()
-      .then((c) => console.log("success", c))
+      .then((c) => console.log("successfully inserted", c.result.nInserted, "entries"))
       .catch((err) => conole.log(err,'this is the error'));
 }
   }

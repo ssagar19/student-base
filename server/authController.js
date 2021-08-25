@@ -12,13 +12,12 @@ module.exports.signup_post = (req, res) => {
   const { gname, pw } = req.body;
   User.find({ email: gname })
     .then((user) => {
-        console.log(user);
+      console.log(user);
       if (user.length >= 1) {
-          console.log('mail exists');
+        console.log("mail exists");
         res.json({
-          message: "Mail Exists"
+          message: "Mail Exists",
         });
-    
       } else {
         User.create({ email: gname, password: pw })
           .then((usr) => {
@@ -29,24 +28,20 @@ module.exports.signup_post = (req, res) => {
             res.status(400).send("error, user not created");
           });
       }
-    }).catch(err =>{
-        console.log(error,'this is error');
+    })
+    .catch((err) => {
+      console.log(error, "this is error");
     });
-
-  
 };
 module.exports.login_post = (req, res) => {
   const { gname, pw } = req.body;
   User.login(gname, pw)
     .then((u) => {
       if (u === "password did not match") {
-          res.json({message : 'password did not match'});
-        // res.sendStatus(401);
-     } else if(u === 'Cannot read property password of null') {
-
-res.json({message: "please enter valid email and passwor"});
-    } 
-      else{
+        res.json({ message: "password did not match" });
+      } else if (u === "Cannot read property password of null") {
+        res.json({ message: "please enter valid email and passwor" });
+      } else {
         const token = createToken(u._id);
         res.cookie("jwt", token, { maxAge: maxAge * 1000 });
         res.json({ user: u._id });
@@ -54,9 +49,7 @@ res.json({message: "please enter valid email and passwor"});
       }
     })
     .catch((err) => {
-      // console.log(err);
       console.log("jkhkhkhjkj");
-    //   res.status(404);
     });
 };
 module.exports.logout_get = (req, res) => {

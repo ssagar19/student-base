@@ -10,7 +10,7 @@ app.controller("signUpData", function ($scope, $http, $location) {
         pw: pw.value,
       };
       $http.post("http://localhost:3000/signup", data).then((res) => {
-console.log(res)
+console.log(res);
       if(res.data === 'error, user not created'){
 $scope.msg = 'user not created';
       }
@@ -22,7 +22,6 @@ $scope.msg = 'user not created';
           $scope.msg = res.data.message;
                     }
        if (res.data.usr) {
-        
           console.log(res.data.usr);
           $location.path("/login");
         }

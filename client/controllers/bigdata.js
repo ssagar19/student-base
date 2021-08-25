@@ -66,8 +66,14 @@ app.controller("bigData", function ($scope, $http, $location, httpFactory) {
         school: school.value,
         place: place.value,
       };
-  
       $http.post("http://localhost:3000/create", data);
     };
+    $scope.marks = 0;
+    $scope.school = "";
+    $scope.branch.value = "";
+    $scope.place.value = "";
+    console.log('hi');
+    
+    $scope.fname = "";
   });
  
