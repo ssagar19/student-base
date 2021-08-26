@@ -46,6 +46,13 @@ router.get("/totalLength", (req, res) => {
     console.log(d.length);
   });
 });
+router.post("/delete", (req, res) => {
+  console.log(req.body);
+  const { id } = req.body;
+  Post.findByIdAndRemove({_id: id}).then((d) => {
+    res.json(d);
+  });
+});
 
 router.post("/posts", (req, res) => {
   const pageOptions = {

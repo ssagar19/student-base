@@ -46,6 +46,7 @@ app.use(
 
 //support parsing of application/x-www-form-urlencoded post data
 app.use(cors());
+app.use('/delete', alienRouter);
 app.use('/logout', alienRouter);
 // app.use("/", alienRouter);
 app.use("/posts", requireAuth, alienRouter);
