@@ -65,15 +65,61 @@ app.directive("bs", function () {
   };
 });
 
-
-app.factory('httpFactory', function ($http) {
+app.factory("httpFactory", function ($http, $location) {
   return {
-    logOut: logOut
+    logOut: logOut,
+    sendTheData: sendTheData,
+    sendingThedata : sendingThedata
   };
-  function logOut (url) {
+
+
+  
+  function logOut(url) {
     return $http.get(url);
   }
+
+  function sendTheData() {
+    
+    let url = "http://localhost:3000/signup";
+    let data = {
+      gname: gname.value,
+      pw: pw.value,
+    };
+    $http.post(url, data).then((res) => {
+      console.log(res);
+      if (res.data === "error, user not created") {
+        msg = "user not created";
+      }
+      if (res.data.message === "Mail Exists") {
+        msg = res.data.message;
+      }
+      if (res.data.usr) {
+        console.log(res.data.usr);
+        $location.path("/login");
+      }
+    });
+  }
+
+  function sendingThedata() {
+    let url = "http://localhost:3000/login";
+    let data = {
+      gname: gname.value,
+      pw: pw.value,
+    };
+    $http.post(url, data).then((res) => {
+      console.log(res, 'this is res');
+      if(res.data.message === 'password did not match'){
+msg = 'password did not match';
+      }
+      if(res.data.message === "please enter valid email and passwor"){
+        msg = 'please enter valid email and password';
+      }
+      if (res.data.user) {
+        console.log(res.data.user);
+        $location.path("/show");
+      }
+    });
+  }
+
+
 });
-
-
-
