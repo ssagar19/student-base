@@ -43,7 +43,6 @@ router.post("/myposts", (req, res) => {
 router.get("/totalLength", (req, res) => {
   Post.find().then((d) => {
     res.json(d.length);
-    console.log(d.length);
   });
 });
 router.post("/delete", (req, res) => {
