@@ -1,12 +1,17 @@
 const User = require("./Users");
-const jwt = require("jsonwebtoken");
-function handleError(err) {
-  console.log(err.message, err.code);
-}
+var jwt = require('jsonwebtoken');
+
+
 const maxAge = 3 * 24 * 60 * 60;
-const createToken = (id) => {
-  return jwt.sign({ id }, " net ninja secret", { expiresIn: maxAge });
+const createToken = (usr) => {
+  console.log(usr);
+  let params = {
+    email: usr.email,
+    password: usr.password
+  };
+  return jwt.sign(params, "kslkdlkhiy8iyiuiuh87y87yhhyg87yugug78uyiy9y87dls", { expiresIn: maxAge });
 };
+
 
 module.exports.signup_post = (req, res) => {
   const { gname, pw } = req.body;
@@ -14,19 +19,24 @@ module.exports.signup_post = (req, res) => {
     .then((user) => {
       console.log(user);
       if (user.length >= 1) {
-        console.log("mail exists");
-        res.json({
-          message: "Mail Exists",
+        console.log("This Mail ALready Exists");
+        res.status(409).json({
+          message: "This Mail ALready Exists",
         });
       } else {
-        User.create({ email: gname, password: pw })
-          .then((usr) => {
-            res.json({ usr: usr._id });
-          })
-          .catch((err) => {
-            handleError(err);
-            res.status(400).send("error, user not created");
-          });
+        if(!gname){
+          res.status(401).json({message : 'please enter email'});
+        }
+           else{
+            User.create({ email: gname, password: pw })
+            .then((usr) => {
+              res.json({ usr: usr._id, message: 'user has been successfully registered' });
+            })
+            .catch((err) => {
+              handleError(err);
+              res.status(400).send("error, user not created");
+            });
+           }
       }
     })
     .catch((err) => {
@@ -38,18 +48,18 @@ module.exports.login_post = (req, res) => {
   User.login(gname, pw)
     .then((u) => {
       if (u === "password did not match") {
-        res.json({ message: "password did not match" });
+        res.status(401).json({ message: "password did not match" });
       } else if (u === "Cannot read property password of null") {
-        res.json({ message: "please enter valid email and passwor" });
+        res.status(400).json({ message: "please enter valid email and passwor" });
       } else {
-        const token = createToken(u._id);
+        const token = createToken(u);
         res.cookie("jwt", token, { maxAge: maxAge * 1000 });
         res.json({ user: u._id });
         res.sendStatus(200);
       }
     })
     .catch((err) => {
-      console.log("jkhkhkhjkj");
+      res.status(401).json({message : 'error handled'});
     });
 };
 module.exports.logout_get = (req, res) => {

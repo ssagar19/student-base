@@ -1,13 +1,16 @@
 var express = require("express");
 var router = express.Router();
 var Post = require("./product");
+
 const authController = require("./authController");
+
 /**
  *@param
  */
 router.post("/signup", authController.signup_post);
 router.post("/login", authController.login_post);
 router.get("/logout", authController.logout_get);
+
 router.post("/myposts", (req, res) => {
   var branches = ["CSE", "EEE", "ECE", "MECH"];
   var option = "";
@@ -42,13 +45,13 @@ router.post("/myposts", (req, res) => {
 
 router.get("/totalLength", (req, res) => {
   Post.find().then((d) => {
-    res.json(d.length);
+    res.json(d);
   });
 });
 router.post("/delete", (req, res) => {
   console.log(req.body);
   const { id } = req.body;
-  Post.findByIdAndRemove({_id: id}).then((d) => {
+  Post.findByIdAndRemove({ _id: id }).then((d) => {
     res.json(d);
   });
 });
@@ -65,9 +68,10 @@ router.post("/posts", (req, res) => {
       if (err) {
         res.status(500).json(err);
       }
-      res.status(200).json(doc);
+      res.status(200).json({ doc });
     });
 });
+
 router.post("/create", (req, res) => {
   console.log(req.body);
   if (req.body.a == "1") {

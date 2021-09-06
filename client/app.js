@@ -1,4 +1,4 @@
-var app = angular.module("myApp", ["ngRoute", "ui.bootstrap"]);
+var app = angular.module("myApp", ["ngRoute", "ui.bootstrap", "ngResource"]);
 app.directive("as", function () {
   return {
     require: "ngModel",
@@ -8,7 +8,6 @@ app.directive("as", function () {
           // if empty, correct value
           return true;
         }
-
         var branch = String(viewValue);
 
         if (branch.length > 2) {
@@ -69,7 +68,7 @@ app.factory("httpFactory", function ($http, $location) {
   return {
     logOut: logOut,
     sendTheData: sendTheData,
-    sendingThedata : sendingThedata
+    sendingThedata: sendingThedata,
   };
 
   function logOut(url) {
@@ -77,7 +76,6 @@ app.factory("httpFactory", function ($http, $location) {
   }
 
   function sendTheData() {
-    
     let url = "http://localhost:3000/signup";
     let data = {
       gname: gname.value,
@@ -99,23 +97,34 @@ app.factory("httpFactory", function ($http, $location) {
   }
 
   function sendingThedata() {
+    msg = "";
     let url = "http://localhost:3000/login";
     let data = {
       gname: gname.value,
       pw: pw.value,
     };
-    $http.post(url, data).then((res) => {
-      console.log(res, 'this is res');
-      if(res.data.message === 'password did not match'){
-msg = 'password did not match';
-      }
-      if(res.data.message === "please enter valid email and passwor"){
-        msg = 'please enter valid email and password';
-      }
-      if (res.data.user) {
-        console.log(res.data.user);
-        $location.path("/show");
-      }
-    });
+    $http
+      .post(url, data)
+      .then((res) => {
+        console.log(res, "this is res");
+        if (res.data.message === "password did not match") {
+          msg = "password did not match";
+        }
+        if (res.data.message === "please enter valid email and passwor") {
+          msg = "please enter valid email and password";
+        }
+        if (res.data.user) {
+          console.log(res.data.user);
+          $location.path("/show");
+        }
+      })
+      .catch(angular.noop);
   }
+});
+app.factory("MyResource", function ($resource) {
+  return $resource("http://localhost:3000/totalLength");
+});
+
+app.factory("fact1", function ($resource) {
+  return $resource("http://localhost:3000/posts", { method: "POST" });
 });
