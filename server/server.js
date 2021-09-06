@@ -25,7 +25,6 @@ jwt.verify(token,' net ninja secret', (err, decodedToken) =>{
   }
 };
 
-
 mongoose.connect('mongodb://shu:shubhamasd@mydbcluster-shard-00-00.dbxsw.mongodb.net:27017,mydbcluster-shard-00-01.dbxsw.mongodb.net:27017,mydbcluster-shard-00-02.dbxsw.mongodb.net:27017/myFirstDatabase?ssl=true&replicaSet=atlas-qfpcg2-shard-0&authSource=admin&retryWrites=true&w=majority')
   .then(() => {
     console.log("connection to database established");
@@ -42,7 +41,6 @@ app.use(
     extended: true,
   })
 );
-
 
 //support parsing of application/x-www-form-urlencoded post data
 app.use(cors());

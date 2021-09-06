@@ -5,5 +5,4 @@ app.controller("signUpData", function ($scope, $http, $location, httpFactory) {
     $scope.msg = '';
     console.log(gname.value, pw.value);
     $scope.sendTheData = httpFactory.sendTheData;
-
   });

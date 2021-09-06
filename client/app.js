@@ -72,8 +72,6 @@ app.factory("httpFactory", function ($http, $location) {
     sendingThedata : sendingThedata
   };
 
-
-  
   function logOut(url) {
     return $http.get(url);
   }
@@ -120,6 +118,4 @@ msg = 'password did not match';
       }
     });
   }
-
-
 });
