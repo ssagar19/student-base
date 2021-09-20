@@ -10,32 +10,35 @@ require('./config/passport')(passport);
 const cookieParser = require('cookie-parser');
 const User = require('./Users');
 
-
-
-
 app.use(passport.initialize());
-// app.use(passport.session());
-  
-// const LocalStrategy = require('passport-').Strategy;
-// // passport.use(new LocalStrategy(User.authenticate()));
-// passport.serializeUser(User.serializeUser());
-// passport.deserializeUser(User.deserializeUser());
 
-// const requireAuth = (req, res, next) =>{
-//   const token = req.cookies.jwt;
-//   //check json web token exists & is veried
-//   if(token){
-// jwt.verify(token,' net ninja secret', (err, decodedToken) =>{
-//   if(err){
-//     console.log(err.message);
-//   }else{
-//     next();
-//   }
-// });
-//   }else{
-//     res.send('404 error');
-//   }
-// };
+const requireAuth = (req, res, next) =>{
+  const token1 = req.cookies.jwt;
+  var token2 = false;
+  if(!req.cookies.email){
+    res.send('No student is Authorised')
+  }
+  User.find({email : req.cookies.email}).then(val =>{
+    if(val[0].role === 'admin'){
+      token2 = true;
+      if(token1 && token2){
+        jwt.verify(token1,'kslkdlkhiy8iyiuiuh87y87yhhyg87yugug78uyiy9y87dls', (err, decodedToken) =>{
+          if(err){
+            console.log('huhiuiuhihiuhihu');
+            console.log(err.message);
+          }else{
+            next();
+          }
+        });
+          }
+          else{
+            res.send('404 error no student in authorised');
+          }
+    }
+
+    });
+
+};
 
 mongoose.connect('mongodb://shu:shubhamasd@mydbcluster-shard-00-00.dbxsw.mongodb.net:27017,mydbcluster-shard-00-01.dbxsw.mongodb.net:27017,mydbcluster-shard-00-02.dbxsw.mongodb.net:27017/myFirstDatabase?ssl=true&replicaSet=atlas-qfpcg2-shard-0&authSource=admin&retryWrites=true&w=majority')
   .then(() => {
@@ -58,11 +61,13 @@ app.use(
 app.use(cors());
 app.use('/delete', alienRouter);
 app.use('/logout', alienRouter);
+app.use('/addSchool', requireAuth,alienRouter);
+app.use('/getSchool',requireAuth, alienRouter);
 // app.use("/", alienRouter);
 app.use("/posts", passport.authenticate('jwt', {session: false}), alienRouter);
 // app.use("/posts",alienRouter);
-app.use("/myposts", passport.authenticate('jwt', {session: false}), alienRouter);
-app.use("/create", passport.authenticate('jwt', {session: false}), alienRouter);
+app.use("/myposts",requireAuth, passport.authenticate('jwt', {session: false}), alienRouter);
+app.use("/create", requireAuth, passport.authenticate('jwt', {session: false}), alienRouter);
 app.use(alienRouter);
 app.use((req, res, next)=>{
   const error = new Error('Not Found');
@@ -81,11 +86,11 @@ app.use((error, req, res, next)=>{
 app.listen(process.env.PORT || 3000, ()=> console.log('server started at port 3000'));
 
 
-
 // 👿 Few words from your product manager:
 // The travelling recommender app works great for our customers
 // However we face many stability and maintenance issues
 // Make it a robust application!
+
 
 // 🧚‍ Few words from your architect:
 //1. Use the travelling recommender code, see 'travelling-recommender-service.js

@@ -1,8 +1,10 @@
 var express = require("express");
 var router = express.Router();
 var Post = require("./product");
+var School = require("./Schools");
 
 const authController = require("./authController");
+const adminController = require("./adminAuth");
 
 /**
  *@param
@@ -10,6 +12,10 @@ const authController = require("./authController");
 router.post("/signup", authController.signup_post);
 router.post("/login", authController.login_post);
 router.get("/logout", authController.logout_get);
+router.post("/create-admin", adminController.signup_post);
+router.post("/admin", adminController.login_post);
+router.get("/admin-logout", adminController.logout_get);
+
 
 router.post("/myposts", (req, res) => {
   var branches = ["CSE", "EEE", "ECE", "MECH"];
@@ -42,6 +48,26 @@ router.post("/myposts", (req, res) => {
       });
     });
 });
+
+router.get('/getSchool', (req, res) =>{
+School.find().select({schoolname : 1}).then(a => res.json(a));
+// res.send()
+});
+
+router.post('/addSchool', (req, res) =>{
+  console.log(req.body, 'dd');
+  const Schoolobj = new School( 
+      { schoolname: req.body.school,
+    schoolemail: req.body.email,
+    city: req.body.city,
+    region: req.body.region,
+    area: req.body.area
+  });
+  Schoolobj.save()
+  .then(a => console.log(a))
+  .catch(a => console.log(a));
+});
+
 
 router.get("/totalLength", (req, res) => {
   Post.find().then((d) => {
@@ -102,17 +128,15 @@ router.post("/create", (req, res) => {
       )
       .catch((err) => console.log(err));
   } else {
-    const { fname, marks, branch, school, place } = req.body;
-
-    if (fname && marks && branch && school && place) {
+    const { fname,  school, hindi, sanskrit, sst, science, maths } = req.body;
+     
+    if (fname && maths && science && sst && sanskrit && hindi && school) {
       let bulk = Post.collection.initializeUnorderedBulkOp();
       bulk.insert({
         fname: fname,
-        marks: marks,
-        branch: branch,
-        school: school,
-        place: place,
-      });
+        marks: [{subject:'maths', marks:maths},{subject:'science', marks:science},{subject:'sst', marks:sst},{subject:'hindi', marks:hindi},{subject:'sanskrit', marks:sanskrit}],
+       school:school
+       });
       // bulk.find({}).delete(); // to delete all documents
       // bulk.find({}).remove(); // to delete all documents
       bulk

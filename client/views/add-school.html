@@ -1,0 +1,58 @@
+
+ <nav class="container navbar navbar-inverse">
+    <ul class="nav navbar-nav d-flex">
+        <li><a href="#!/">Home</a></li>
+        <li><a href="#!/add">Add Student Info</a></li>
+        <li><a href="#!/show">Show student Entries</a></li>
+        <li><a href="#!/analytics">Analytics</a></li>
+        <li ng-click='logout()'><a href="#">Logout <i class="fa fa-sign-out"></i></a></li>
+    </ul>      
+  </nav>
+  
+  <br>
+  <div class="panel panel-primary">
+    <div style="font-size: large; font-weight: bold; color: rgb(255, 255, 255);" class="panel-heading wrapper cr">
+      Add School</div>
+  
+  <div class="wrapper container panel-body"
+  align="center">
+  <form name='myForm' class="jumbotron text-center">
+    <div class="form-group">
+      <label for="area">Area</label><br>
+      <input class="form-control" type="text" id="area" ng-model='area' name="area" ad>
+      <span style="color:red;" ng-show="myForm.fname.$error.ad">
+        add valid name</span><br>
+      </div>
+    <div class="form-group">
+      <label for="school">School Name : </label><br>
+      <input class="form-control" type="text" id="school" ng-model='school' name="school" ad>
+     
+      </div>
+
+   <div class="form-group">
+    <label for="email">School Email:</label><br>
+    <input class="form-control" type="email" id="email" name="email" ng-model='email' as><br>
+  
+    </div>
+       
+  <div class="form-group">
+    <label for="region">Region:</label><br>
+    <input class="form-control" type="text" id="region" name="region" ng-model='region' as><br>
+    <span style="color:red;" ng-show="myForm.branch.$error.as">
+      add valid name</span><br>
+    </div> 
+  
+  <div class="form-group">
+    <label for="city">:City </label><br>
+    <input class="form-control" type="text" id="city" name="city"><br>
+  </div>
+    
+  <br>
+  <br>
+  <button class ='btn btn-primary' type="submit" id='btn' ng-click='addSchool()'>Add Details</button>
+  </form>
+
+  
+  </div>
+  </div>
+  

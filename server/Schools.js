@@ -1,20 +1,12 @@
 const mongoose = require('mongoose');
 
+const schoolSchema = mongoose.Schema({
 
-const marksSchema = mongoose.Schema({
-    subject : {
-        type:String
-    },
-    marks : {
-        type:Number
-    }
-});
-
-
-const productSchema = mongoose.Schema({
-    fname: {type: String, required: true},
-    marks : [marksSchema],
-    school: {type: String, required: true}
+    schoolname: {type: String, required: true},
+    schoolemail: {type: String},
+    city: {type: String, required: true},
+    region: {type: String, required: true},
+    area: {type:String}
 });
 
 
@@ -38,4 +30,4 @@ const productSchema = mongoose.Schema({
 
 
 
-module.exports = mongoose.model('Post', productSchema);
+module.exports = mongoose.model('School', schoolSchema);

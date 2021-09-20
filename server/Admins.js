@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const { isEmail } = require("validator");
-const userSchema = new mongoose.Schema({
+const adminSchema = new mongoose.Schema({
   email: {
     type: String,
     required: [true, "please enter an email"],
@@ -14,17 +14,14 @@ const userSchema = new mongoose.Schema({
     required: [true, "please enter an password"],
     minlength: [6, "minimum password length is 6 characters"],
   },
-  role :{
+  role:{
     type:String,
-    default : 'basic'
+    default: 'admin'
   }
-
 });
 
-userSchema.index({ role : 'admin' });
-
-userSchema.statics.login = function (email, password) {
-  return User.findOne({ email: email })
+adminSchema.statics.login = function (email, password) {
+  return Admin.findOne({ email: email })
     .then((user) => {
       if (password == user.password) {
         return user;
@@ -37,5 +34,5 @@ userSchema.statics.login = function (email, password) {
     });
 };
 
-const User = mongoose.model("user", userSchema);
-module.exports = User;
+const Admin = mongoose.model("admin", adminSchema);
+module.exports = Admin;

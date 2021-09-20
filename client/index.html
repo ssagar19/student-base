@@ -5,6 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-growl/1.0.0/jquery.bootstrap-growl.min.js" integrity="sha512-pBoUgBw+mK85IYWlMTSeBQ0Djx3u23anXFNQfBiIm2D8MbVT9lr+IxUccP8AMMQ6LCvgnlhUCK3ZCThaBCr8Ng==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-route/1.7.7/angular-route.min.js"
@@ -37,9 +39,23 @@
 </head>
 <body>
    
-
+  
     <ng-view>
     </ng-view>
+    <script>
+        $.bootstrapGrowl("Welcome", {
+  ele: 'body', // which element to append to
+  type: 'info', // (null, 'info', 'error', 'success')
+  offset: {from: 'top', amount: 20}, // 'top', or 'bottom'
+  align: 'right', // ('left', 'right', or 'center')
+  width: 250, // (integer, or 'auto')
+  delay: 4000,
+  allow_dismiss: true,
+  stackup_spacing: 10 // spacing between consecutively stacked growls.
+});
+
+
+    </script>
     
 </body>
 </html>

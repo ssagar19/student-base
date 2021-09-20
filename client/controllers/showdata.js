@@ -10,8 +10,10 @@ app.controller(
     fact1
   ) {
     $scope.len = 0;
-    $scope.vis = true;
-    console.log($scope.vis);
+    console.log(document.cookie.indexOf('admin') !== -1);
+  //  if(document.cookie.indexOf('admin') === -1){
+  //    $location.path('/show');
+  //  }
     MyResource.query(function (vals) {
       $scope.len = vals.length;
     });
@@ -21,6 +23,28 @@ app.controller(
     $scope.$validator = "";
     if (!document.cookie) {
       $location.path("/login");
+      $.bootstrapGrowl("Please Login to Visit this page", {
+        ele: 'body', // which element to append to
+        type: 'info', // (null, 'info', 'error', 'success')
+        offset: {from: 'top', amount: 20}, // 'top', or 'bottom'
+        align: 'right', // ('left', 'right', or 'center')
+        width: 250, // (integer, or 'auto')
+        delay: 4000,
+        allow_dismiss: true,
+        stackup_spacing: 10 // spacing between consecutively stacked growls.
+      });
+    }
+    if(document.cookie){
+      $.bootstrapGrowl("Login Successful", {
+        ele: 'body', // which element to append to
+        type: 'info', // (null, 'info', 'error', 'success')
+        offset: {from: 'top', amount: 20}, // 'top', or 'bottom'
+        align: 'right', // ('left', 'right', or 'center')
+        width: 250, // (integer, or 'auto')
+        delay: 4000,
+        allow_dismiss: true,
+        stackup_spacing: 10 // spacing between consecutively stacked growls.
+      });
     }
     $scope.logout = function () {
       httpFactory
@@ -28,7 +52,19 @@ app.controller(
         .then(function (response) {
           console.log(response.data);
         });
+
       $location.path("/login");
+      $.bootstrapGrowl("Logout Successful", {
+        ele: 'body', // which element to append to
+        type: 'danger', // (null, 'info', 'error', 'success')
+        offset: {from: 'top', amount: 20}, // 'top', or 'bottom'
+        align: 'right', // ('left', 'right', or 'center')
+        width: 250, // (integer, or 'auto')
+        delay: 4000,
+        allow_dismiss: true,
+        stackup_spacing: 10 // spacing between consecutively stacked growls.
+      });
+
     };
     $scope.currentPage = 1;
     $scope.posts = "";

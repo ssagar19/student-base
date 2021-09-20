@@ -1,4 +1,4 @@
-const User = require("./Users");
+const Users = require("./Users");
 var jwt = require('jsonwebtoken');
 
 const maxAge = 3 * 24 * 60 * 60; //age of cookie to expire automatically
@@ -14,7 +14,8 @@ const createToken = (usr) => {
 
 module.exports.signup_post = (req, res) => {
   const { gname, pw } = req.body;
-  User.find({ email: gname })
+  console.log('this ran');
+  Users.find({ email: gname })
     .then((user) => {
       console.log(user);
       if (user.length >= 1) {
@@ -27,7 +28,8 @@ module.exports.signup_post = (req, res) => {
           res.status(401).json({message : 'please enter email'});
         }
            else{
-            User.create({ email: gname, password: pw })
+               console.log('hi');
+            Users.create({ email: gname, password: pw, role: 'admin'})
             .then((usr) => {
               res.json({ usr: usr._id, message: 'user has been successfully registered' });
             });
@@ -43,7 +45,7 @@ module.exports.signup_post = (req, res) => {
 
 module.exports.login_post = (req, res) => {
   const { gname, pw } = req.body;
-  User.login(gname, pw)
+  Users.login(gname, pw)
     .then((u) => {
       if (u === "password did not match") {
         res.status(401).json({ message: "password did not match" });
@@ -64,5 +66,6 @@ module.exports.login_post = (req, res) => {
 
 module.exports.logout_get = (req, res) => {
   res.cookie("jwt", "", { maxAge: 1 });
+  res.cookie("role", "", { maxAge: 1 });
   res.redirect("/");
 };

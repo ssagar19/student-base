@@ -25,37 +25,64 @@ align="center">
     <span style="color:red;" ng-show="myForm.fname.$error.ad">
       add valid name</span><br>
     </div>
-     
-<div class="form-group">
-
-  <label for="branch">Branch:</label><br>
-  <input class="form-control" type="text" id="branch" name="branch" ng-model='branch' as><br>
-  <span style="color:red;" ng-show="myForm.branch.$error.as">
-    add valid name</span><br>
-  </div>
 
   <div class="form-group">
 
-    <label for="marks">Total Marks:</label><br>
-    <input class="form-control" type="number" id="marks" name="marks" ng-model='marks' bs><br>
+    <label for="maths">Maths:</label><br>
+    <input class="form-control" type="number" id="maths" name="maths" ng-model='maths' bs><br>
     <span style="color:red;" ng-show="myForm.marks.$error.bs">
       add valid name</span><br>
     </div>
 
-<div class="form-group">
-  <label for="place">Places: </label><br>
-  <input class="form-control" type="text" id="place" name="place"><br>
-</div>
+  <div class="form-group">
+    <label for='science'>science:</label><br>
+    <input class="form-control" type="number" id="science" name="science" ng-model='science' bs><br>
+    <span style="color:red;" ng-show="myForm.marks.$error.bs">
+      add valid name</span><br>
+    </div>
+
+
+    <div class="row">
+      <div class="col-md-6">
+        <p class="input-group">
+          <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dt" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats"/>
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+          </span>
+        </p>
+      </div>
+
+
+  <div class="form-group">
+
+    <label for="sst">SST:</label><br>
+    <input class="form-control" type="number" id="sst" name="sst" ng-model='sst' bs><br>
+    <span style="color:red;" ng-show="myForm.marks.$error.bs">
+      add valid name</span><br>
+    </div>
+
+  <div class="form-group">
+
+    <label for="hindi">Hindi:</label><br>
+    <input class="form-control" type="number" id="hindi" name="hindi" ng-model='hindi' bs><br>
+    <span style="color:red;" ng-show="myForm.marks.$error.bs">
+      add valid name</span><br>
+    </div>
+
+  <div class="form-group">
+
+    <label for="sanskrit">Sanskrit:</label><br>
+    <input class="form-control" type="number" id="sanskrit" name="sanskrit" ng-model='sanskrit' bs><br>
+    <span style="color:red;" ng-show="myForm.marks.$error.bs">
+      add valid name</span><br>
+    </div>
+
   
 <label for="school">Choose Your School : </label>
 <br>
 <br>
 <select class="form-control" id="school" name="school">
-  <option value="dps rk puram">DPS RK Puram</option>
-  <option value="dps Nangloi">DPS Nangloi</option>
-  <option value="dps krishna nagar">DPS Krishna Nagar</option>
-  <option value="Sr. Sec GOVT. School">Sr, Sec GOVT. School</option>
-  <option value="The doon School">The Doon School</option>
+  <option ng-repeat='school in schools' value={{school.schoolname}}>{{school.schoolname}}</option>
 </select>
 <br>
 <br>

@@ -1,0 +1,40 @@
+
+ <nav class="container navbar navbar-inverse">
+    <ul class="nav navbar-nav d-flex">
+        <li><a href="#!/">Home</a></li>
+        <li><a href="#!/add">Add Student Info</a></li>
+        <li><a href="#!/show">Show student Entries</a></li>
+        <li><a href="#!/analytics">Analytics</a></li>
+        <li ng-click='logout()'><a href="#">Logout <i class="fa fa-sign-out"></i></a></li>
+    </ul>      
+  </nav>
+  <div class="container">
+  <table class="table table-striped table-bordered container" datatable="ng" dt-options="vm.dtOptions" dt-instance="vm.dtInstance"  width="100%" dt-column-defs="vm.dtColumnDefs">
+    <thead>
+      <tr><th>Place</th><th>Name</th><th>Branch</th><th>Marks</th><th>School</th></tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat='post in posts track by $index'>
+        <td>{{post.place}}</td>
+        <td>
+          {{post.fname}}
+        </td>
+        <td>{{post.branch}}</td>
+     <td>{{post.marks}}</td>
+     <td>{{post.school}}</td>
+     <td>
+  
+       <!-- <button ng-click='deleteThis(post._id)'>delete</button> -->
+      </td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="ald"  align='center'>
+    <pagination total-items="len" ng-model="currentPage" ng-change="pageChanged()" class="pagination-sm" items-per-page="10"></pagination>
+  </div>
+  
+  
+  
+  
+  

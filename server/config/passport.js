@@ -1,5 +1,4 @@
 var LocalStrategy = require("passport-jwt").Strategy;
-var passport= require('passport');
 var User = require("../Users");
 
 var opts = {};
@@ -9,18 +8,14 @@ var cookieExtractor = function (req) {
   var token = null;
   if (req && req.cookies) {
     token = req.cookies["jwt"];
-    console.log("hi", token);
   }
   return token;
 };
 
 opts.jwtFromRequest = cookieExtractor;
-
 module.exports = function (passport) {
-  console.log("yes");
   passport.use(
     new LocalStrategy(opts, function (jwt_payload, cb) {
-      console.log(opts);
       console.log("jwtPayload" + JSON.stringify(jwt_payload));
       User.findOne({ email: jwt_payload.email })
         .then(function (data) {

@@ -33,3 +33,27 @@ table{
     top: 500px;
     left: 300px;
 }
+
+.showcase{
+    background-color: tomato;
+    height: 91rem;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.lf, .rt{
+    border: 1px solid black;
+    height: 10rem;
+    background-color: thistle;
+    padding: 3.5rem;
+    border-radius: 50% 50%;
+    font-weight: bolder;
+    font-size: 2rem;
+
+}
+.img-cls{
+
+    height: 9rem;
+    border-radius: 50% 50%;
+    
+}
